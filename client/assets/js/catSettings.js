@@ -51,10 +51,32 @@ function getDna(){
 function renderCat(dna){
     headColor(colors[dna.headcolor],dna.headcolor)
     $('#bodycolor').val(dna.headcolor)
+    mouthAndBelly(colors[dna.mouthcolor],dna.mouthcolor)
+    $('#mouthcolor').val(dna.mouthcolor)
+    eyeColor(colors[dna.eyescolor],dna.eyescolor)
+    $('#eyecolor').val(dna.eyescolor)
+    earsAndPaw(colors[dna.earscolor],dna.earscolor)
+    $('#earcolor').val(dna.earscolor)
+
 }
 
 // Changing cat colors
 $('#bodycolor').change(()=>{
     var colorVal = $('#bodycolor').val()
     headColor(colors[colorVal],colorVal)
+})
+
+$('#mouthcolor').change(()=>{
+  var colorVal = $('#mouthcolor').val()
+  mouthAndBelly(colors[colorVal],colorVal)
+})
+
+$('#eyecolor').change(()=>{
+  var colorVal = $('#eyecolor').val()
+  eyeColor(colors[colorVal],colorVal)
+})
+
+$('#earcolor').change(()=>{
+  var colorVal = $('#earcolor').val()
+  earsAndPaw(colors[colorVal],colorVal)
 })
