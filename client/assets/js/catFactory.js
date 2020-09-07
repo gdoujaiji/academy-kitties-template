@@ -50,6 +50,19 @@ function eyeVariation(num) {
             normalEyes()
             $('#eyeName').html('Basic')
             break
+        case 2:
+            normalEyes()
+            $('#eyeName').html('Chill')
+            eyesType1()
+            break
+        case 3:
+            normalEyes()
+            $('#eyeName').html('Look Up')
+            eyesType2()
+            break
+        default:
+            console.log("Not 1 or 2")
+            break
     }
 }
 
@@ -65,6 +78,14 @@ function decorationVariation(num) {
 
 async function normalEyes() {
     await $('.cat__eye').find('span').css('border', 'none')
+}
+
+async function eyesType1() {
+    await $('.cat__eye').find('span').css('border-top', '15px solid')
+}
+
+async function eyesType2() {
+    await $('.cat__eye').find('span').css('border-bottom', '15px solid')
 }
 
 async function normaldecoration() {
