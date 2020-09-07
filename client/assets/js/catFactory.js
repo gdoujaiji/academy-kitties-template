@@ -60,8 +60,33 @@ function eyeVariation(num) {
             $('#eyeName').html('Look Up')
             eyesType2()
             break
+        case 4:
+            normalEyes()
+            $('#eyeName').html('')/////////
+            eyesType3()
+            break
+        case 5:
+            normalEyes()
+            $('#eyeName').html('')/////////
+            eyesType4()
+            break
+        case 6:
+            normalEyes()
+            $('#eyeName').html('')/////////
+            eyesType5()
+            break
+        case 7:
+            normalEyes()
+            $('#eyeName').html('Wonder Up')
+            eyesType6()
+            break
+        case 8:
+            normalEyes()
+            $('#eyeName').html('Circle')
+            eyesType7()
+            break
         default:
-            console.log("Not 1 or 2")
+            console.log("Should be between 1 and 8")
             break
     }
 }
@@ -73,7 +98,64 @@ function decorationVariation(num) {
             $('#decorationName').html('Basic')
             normaldecoration()
             break
+        case 2:
+            $('#decorationName').html('Inverted')
+            decorationType1()
+            break
+        case 3:
+            $('#decorationName').html('Twisted')
+            decorationType2()
+            break
+        case 4:
+            $('#decorationName').html('Uniform')
+            decorationType3()
+            break
+        case 5:
+            $('#decorationName').html('Uniform Twist')
+            decorationType4()
+            break
+        case 6:
+            $('#decorationName').html('Tribal')
+            decorationType5()
+            break
+        case 7:
+            $('#decorationName').html('Propeller')
+            decorationType6()
+            break
+        case 8:
+            $('#decorationName').html('Single')
+            decorationType7()
+            break
+        
     }
+}
+
+function animationVariation(num){
+    $('#dnaanimation').html(num);
+    switch (num){
+        case 1:
+            animationType1();
+            break;
+        case 2:
+            animationType2();
+            break;
+    }
+}
+
+function animationType1(){
+    requestAnimationFrame();
+    $('#head').addClass('movingHead');
+}
+
+function animationType2(){
+    requestAnimationFrame();
+    // Add new animation......
+    $('#head').addClass('movingHead');
+}
+
+function resetAnimation(){
+    $('#head').removeClass('movingHead');
+    ////////////////// Add new remove animation.......
 }
 
 async function normalEyes() {
@@ -88,10 +170,59 @@ async function eyesType2() {
     await $('.cat__eye').find('span').css('border-bottom', '15px solid')
 }
 
+async function eyesType3() {
+    await $('.cat__eye').find('span').css({'border-top': '15px solid', 'border-bottom': '15px solid'})
+}
+
+async function eyesType4() {
+    await $('.cat__eye').find('span').css('border-bottom', '15px solid')//////
+}
+
+async function eyesType5() {
+    await $('.cat__eye').find('span').css('border-bottom', '15px solid')//////
+}
+
+async function eyesType6() {
+    await $('.cat__eye').find('span').css('border-bottom', '15px solid')//////
+}
+
+async function eyesType7() {
+    await $('.cat__eye').find('span').css('border', '15px solid')
+}
+
 async function normaldecoration() {
     //Remove all style from other decorations
     //In this way we can also use normalDecoration() to reset the decoration style
     $('.cat__head-dots').css({ "transform": "rotate(0deg)", "height": "48px", "width": "14px", "top": "1px", "border-radius": "0 0 50% 50%" })
     $('.cat__head-dots_first').css({ "transform": "rotate(0deg)", "height": "35px", "width": "14px", "top": "1px", "border-radius": "50% 0 50% 50%" })
     $('.cat__head-dots_second').css({ "transform": "rotate(0deg)", "height": "35px", "width": "14px", "top": "1px", "border-radius": "0 50% 50% 50%" })
+}
+
+async function decorationType1() {
+    normaldecoration()
+    $('.cat__head-dots').css("transform", "rotate(180deg)")
+    $('.cat__head-dots_first').css("transform", "rotate(0deg)")
+    $('.cat__head-dots_second').css("transform", "rotate(0deg)")
+}
+
+async function decorationType5() {
+    normaldecoration()
+    $('.cat__head-dots').css({"transform": "rotate(180deg)", "height":"50px", "border-right":""})
+    $('.cat__head-dots_first').css({"transform":"rotate(35deg)", "height":"40px"})////
+    $('.cat__head-dots_second').css({"transform":"rotate(-35deg)", "height":"40px"})
+}
+
+async function decorationType6() {
+    normaldecoration()
+    $('.cat__head-dots').css({"transform": "rotate(180deg)", "height":"50px", "border-right":""})
+    $('.cat__head-dots_first').css({"transform":"rotate(135deg)", "height":"45px"})////
+    $('.cat__head-dots_second').css({"transform":"rotate(-135deg)", "height":"45px"})
+}
+
+async function decorationType7() {
+    normaldecoration()
+    var dots2 = $('.cat__head-dots_first')
+    var dots3 = $('.cat__head-dots_second')
+    dots2.css("height", "0px")
+    dots3.css("height", "0px")
 }
