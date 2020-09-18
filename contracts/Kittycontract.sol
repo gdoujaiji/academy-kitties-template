@@ -82,7 +82,7 @@ contract Kittycontract is IERC721, Ownable {
         _transfer(msg.sender, _to, _tokenId);
     }
 
-    function _transfer(address _from, address _to, uint256 tokenId) internal {
+    function _transfer(address _from, address _to, uint256 _tokenId) internal {
         ownershipTokenCount[_to]++;
         kittyIndexToOwner[_tokenId] = _to;
         if (_from != address(0)) {
@@ -93,6 +93,6 @@ contract Kittycontract is IERC721, Ownable {
     }
 
     function _owns(address _claimant, uint256 _tokenId) internal view returns (bool) {
-        return kittyIndexToOwner[_tokenId] == __claimant;
+        return kittyIndexToOwner[_tokenId] == _claimant;
     }
 }
