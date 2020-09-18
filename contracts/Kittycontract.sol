@@ -1,11 +1,15 @@
 pragma solidity ^0.5.12;
 
 import "./ERC721.sol";
+import "./Ownable.sol";
 
-contract Kittycontract is IERC721 {
+contract Kittycontract is IERC721, Ownable {
 
+    uint256 public constant CREATION_LIMIT_GEN0 = 10;
     string public constant name = "DoujaijiKitties";
     string public constant symbol = "DJK";
+
+    event Birth(address owner, uint256 kittenId, uint256 mumId, uint256 dadId, uint256 genes);
 
     struct Kitty {
         uint256 genes;
@@ -19,6 +23,29 @@ contract Kittycontract is IERC721 {
 
     mapping (uint256 => address) public kittyIndexToOwner;
     mapping (address => uint256) ownershipTokenCount;
+
+    uint256 public gen0Counter;
+
+    function createKittyGen0(uint256 _genes) public onlyOwner returns (uint256) {
+        require(gen0Counter < CREATION_LIMIT_GEN0);
+        gen0Counter++;
+        // Gen0 have no owners, they are own by the contract
+        return _createKitty(0, 0, 0, _genes, msg.sender); // also address(this) can be used
+    }
+
+    function _createKitty(uint256 _mumId, uint256 _dadId, uint256 _generation, uint256 _genes, address _owner) private returns (uint256){
+        Kitty memory _kitty = Kitty({
+            genes: _genes,
+            birthTime: uint64(now),
+            mumId: uint32(_mumId),
+            dadId: uint32(_dadId),
+            generation: uint16(_generation)
+        });
+        uint256 newKittenId = kitties.push(_kitty) -1; // to have ID 0 for the first Kitty
+        emit Birth(_owner, newKittenId, _mumId, _dadId, _genes); // new Birth event
+        _transfer(address(0), _owner, newKittenId);
+        return newKittenId;
+    }
 
 
     function balanceOf(address owner) external view returns (uint256 balance){
