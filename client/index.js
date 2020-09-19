@@ -40,3 +40,19 @@ function createKitty(){
         
     })
 }
+
+async function getKitties(){
+    var arrayId;
+    var kitty;
+    try{
+        arrayId = await instance.methods.getKittyByOwner(user).call();
+    } catch(err){
+        console.log(err);
+    }
+
+    for (i =0; i< arrayId.length; i++){
+        kitty = await instance.methods.getKitty(arrayId[i]).call();
+        appendCat(kitty[0], i);
+    }
+    console.log(kitty);
+}
