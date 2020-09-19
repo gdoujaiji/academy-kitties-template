@@ -12,6 +12,13 @@ contract Kittycontract is IERC721, Ownable {
 
     bytes4 internal constant MAGIC_ERC721_RECEIVED = bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
 
+    bytes4 private constant _INTERFACE_ID_ERC721 = 0x80ac58cd; // interface signature
+
+    /*
+    *   bytes4(keccak256('supportsInterface(bytes4)'));
+    */
+    bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7; // interface signature
+    
     event Birth(address owner, uint256 kittenId, uint256 mumId, uint256 dadId, uint256 genes);
 
     struct Kitty {
@@ -36,6 +43,10 @@ contract Kittycontract is IERC721, Ownable {
 
     
     uint256 public gen0Counter;
+
+    function supportsInterface(bytes4 _interfaceId) external view returns (bool) {
+        return (_interfaceId == _INTERFACE_ID_ERC721 || _interfaceId == _INTERFACE_ID_ERC165);
+    }
 
     function safeTransferFrom(address _from, address _to, uint256 _tokenId) public {
         safeTransferFrom(_from, _to, _tokenId, "");
