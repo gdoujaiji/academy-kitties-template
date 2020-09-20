@@ -232,14 +232,56 @@ contract Kittycontract is IERC721, Ownable {
         return (_spender == _from || _approvedFor(_spender, _tokenId) || isApprovedForAll(_from, _spender));
     }
 
-    function _mixDna(uint256 _dadDna, uint256 _mumDna) internal returns (uint256) {
+    function _mixDna(uint256 _dadDna, uint256 _mumDna) internal view returns (uint256) {
         // dadDna: 1122334455667788
         // mumDna: 8877665544332211
-
+        /*
         uint256 firstHalf = _dadDna / 100000000; // 11223344
         uint256 secondHalf = _mumDna % 100000000; // 44332211
         uint256 newDna = firstHalf * 100000000; // 1122334400000000
         newDna = newDna + secondHalf; // 1122334444332211
         return newDna;
+        */
+        uint256[8] memory geneArray;
+        uint8 random = uint8(now % 255); // binary between 00000000-11111111
+        uint256 i = 1;
+        uint256 index = 7;
+        for (i = 1; i <= 128; i = i * 2) {
+            if (random & i != 0) {
+                geneArray[index] = uint8(_mumDna % 100);
+            } else {
+                geneArray[index] = uint8(_dadDna % 100);
+            }
+
+            _mumDna = _mumDna / 100; // To cut the last two digits
+            _dadDna = _dadDna / 100; // To cut the last two digits
+
+            index = index - 1; // To reduce the index
+
+
+            // 1, 2, 4, 8, 16, 32, 64, 128
+            /*
+            00000001 - 1
+            00000010 - 2
+            00000100 - 4
+            00001000 - 8
+            00010000 - 16
+            00100000 - 32
+            01000000 - 64
+            10000000 - 128
+            */
+
+        }
+
+        // To create the new DNA from the array
+        uint256 newGene;
+        for (i = 0; i < 8; i++) {
+            newGene = newGene + geneArray[i];
+            if (i != 7){
+                newGene = newGene * 100;
+            }
+            
+        }
+        return newGene;
     }
 }
