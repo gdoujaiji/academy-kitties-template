@@ -2,7 +2,7 @@ var web3 = new Web3(Web3.givenProvider);
 
 var instance;
 var user;
-var contractAddress = "0x5fE4f2aA7450AF28bbba32B47c830009b7cA193a"; // get your contract address
+var contractAddress = "0xBab0623D43a36b980Ed4356C603950809afA4A06"; // get your contract address
 
 $(document).ready(function(){
     // to enable to use MetaMask 
