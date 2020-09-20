@@ -17,7 +17,7 @@ contract KittyMarketPlace is Ownable {
 
     Offer[] offers;
 
-    event MarketTransaction(string TxType, address owner, uint256 tikenId);
+    event MarketTransaction(string TxType, address owner, uint256 tokenId);
 
     mapping(uint256 => Offer) tokenIdToOffer;
 
